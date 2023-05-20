@@ -19,5 +19,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::get('/patients', [PatientController::class, 'show']);
 Route::post('/patients', [PatientController::class, 'store']);
 Route::put('/patients/{id}', [PatientController::class, 'update']);
+Route::delete('/patients/{id}', [PatientController::class, 'destroy']);

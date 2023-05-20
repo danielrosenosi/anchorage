@@ -10,7 +10,7 @@ class PatientController extends Controller
 {
     public function show()
     {
-        $patients = PatientModel::all();
+        $patients = PatientModel::with('attendances')->get();
 
         return response()->json($patients);
     }
@@ -33,5 +33,14 @@ class PatientController extends Controller
         $patient->update($data);
 
         return response()->json($patient);
+    }
+
+    public function destroy(int $id)
+    {
+        $patient = PatientModel::findOrFail($id);
+
+        $patient->delete();
+
+        return response()->json(['message' => 'Paciente removido com sucesso!']);
     }
 }

@@ -22,4 +22,9 @@ class PatientModel extends Model
     ];
 
     protected $table = 'patients';
+
+    public function attendances()
+    {
+        return $this->hasMany(AttendanceModel::class, 'patient_id', 'id');
+    }
 }
