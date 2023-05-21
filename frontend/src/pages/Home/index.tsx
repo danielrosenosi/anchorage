@@ -21,7 +21,6 @@ export function Home() {
         }
     }
 
-
     async function deletePatient(id: number) {
         try {
             await api.delete(`/patients/${id}`);
@@ -79,7 +78,7 @@ export function Home() {
                 </thead>
 
                 <tbody>
-                    {patients.map((patient: any) => (
+                    {patients.map((patient: Patient) => (
                         <tr key={patient.id}>
                             <td>{patient.fullname}</td>
                             <td>
