@@ -14,6 +14,10 @@ class AttendanceModel extends Model
         'patient_id',
         'status',
         'symptoms',
+        'temperature',
+        'systolic_blood_pressure',
+        'diastolic_blood_pressure',
+        'respiratory_frequency',
     ];
 
     protected $casts = [

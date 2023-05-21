@@ -25,7 +25,11 @@ class AttendanceRequest extends FormRequest
     public function rules()
     {
         return [
-            'symptoms' => ['sometimes', 'array', 'required']
+            'symptoms' => ['sometimes', 'array', 'required'],
+            'temperature' => ['sometimes', 'numeric', 'required'],
+            'systolic_blood_pressure' => ['sometimes', 'numeric', 'required'],
+            'diastolic_blood_pressure' => ['sometimes', 'numeric', 'required'],
+            'respiratory_frequency' => ['sometimes', 'numeric', 'required'],
         ];
     }
 
@@ -34,6 +38,14 @@ class AttendanceRequest extends FormRequest
         return [
             'symptoms.array' => 'O valor deve ser um conjunto.',
             'symptoms.required' => 'O campo é obrigatório.',
+            'temperature.numeric' => 'O valor deve ser um número.',
+            'temperature.required' => 'O campo é obrigatório.',
+            'systolic_blood_pressure.numeric' => 'O valor deve ser um número.',
+            'systolic_blood_pressure.required' => 'O campo é obrigatório.',
+            'diastolic_blood_pressure.numeric' => 'O valor deve ser um número.',
+            'diastolic_blood_pressure.required' => 'O campo é obrigatório.',
+            'respiratory_frequency.numeric' => 'O valor deve ser um número.',
+            'respiratory_frequency.required' => 'O campo é obrigatório.',
         ];
     }
 }

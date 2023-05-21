@@ -16,6 +16,10 @@ return new class extends Migration
             $table->foreignId('patient_id')->constrained('patients');
             $table->integer('status');
             $table->json('symptoms');
+            $table->decimal('temperature');
+            $table->integer('systolic_blood_pressure');
+            $table->integer('diastolic_blood_pressure');
+            $table->integer('respiratory_frequency');
             $table->timestamps();
         });
     }

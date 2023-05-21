@@ -26,6 +26,10 @@ class AttendanceController extends Controller
             'patient_id' => $patientId,
             'symptoms' => $data['symptoms'] ?? [],
             'status' => AttendanceModel::getStatus($data['symptoms'] ?? []),
+            'temperature' => $data['temperature'],
+            'systolic_blood_pressure' => $data['systolic_blood_pressure'],
+            'diastolic_blood_pressure' => $data['diastolic_blood_pressure'],
+            'respiratory_frequency' => $data['respiratory_frequency'],
         ]);
 
         return response()->json($attendance);
