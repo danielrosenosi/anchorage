@@ -1,9 +1,11 @@
-import React from 'react';
-import './App.css';
+import { AppRoutes } from './routing';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <></>
+    <>
+      <AppRoutes />
+    </>
   );
 }
 
