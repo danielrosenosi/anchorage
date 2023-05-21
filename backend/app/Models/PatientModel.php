@@ -24,8 +24,13 @@ class PatientModel extends Model
 
     protected $table = 'patients';
 
-    public function attendances(): HasMany
+    public function allAttendances(): HasMany
     {
         return $this->hasMany(AttendanceModel::class, 'patient_id', 'id');
+    }
+
+    public function lastAttendance()
+    {
+        return $this->hasOne(AttendanceModel::class, 'patient_id', 'id')->latest();
     }
 }
