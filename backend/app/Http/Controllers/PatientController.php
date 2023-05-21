@@ -19,9 +19,11 @@ class PatientController extends Controller
     {
         $data = $request->validated();
 
-        $patient = PatientModel::firstOrCreate($data);
+        $file = $data['image'];
+        $path = $file->store('images');
+        $data['image'] = $path;
 
-        $data['image']->store('images');
+        $patient = PatientModel::firstOrCreate($data);
 
         return response()->json($patient);
     }
@@ -30,11 +32,13 @@ class PatientController extends Controller
     {
         $data = $request->validated();
 
+        $file = $data['image'];
+        $path = $file->store('images');
+        $data['image'] = $path;
+
         $patient = PatientModel::findOrFail($patientId);
 
         $patient->update($data);
-
-        $data['image']->store('images');
 
         return response()->json($patient);
     }
