@@ -28,7 +28,7 @@ class UpdatePatientRequest extends FormRequest
             'birthdate' => 'required|date',
             'cpf' => 'required|string',
             'phone' => 'required|string',
-            'image' => 'required|string',
+            'image' => 'required|mimes:jpeg,png,jpg',
         ];
     }
 
@@ -49,7 +49,7 @@ class UpdatePatientRequest extends FormRequest
             'phone.required' => 'O campo telefone é obrigatório',
             'phone.string' => 'O campo telefone deve ser uma string',
             'image.required' => 'O campo imagem é obrigatório',
-            'image.string' => 'O campo imagem deve ser uma string',
+            'image.mimes' => 'O campo imagem deve ser um arquivo do tipo: jpeg, png, jpg',
         ];
     }
 }

@@ -21,6 +21,8 @@ class PatientController extends Controller
 
         $patient = PatientModel::firstOrCreate($data);
 
+        $data['image']->store('images');
+
         return response()->json($patient);
     }
 
@@ -31,6 +33,8 @@ class PatientController extends Controller
         $patient = PatientModel::findOrFail($patientId);
 
         $patient->update($data);
+
+        $data['image']->store('images');
 
         return response()->json($patient);
     }
