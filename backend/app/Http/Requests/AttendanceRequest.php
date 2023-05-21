@@ -25,14 +25,19 @@ class AttendanceRequest extends FormRequest
     public function rules()
     {
         return [
-            'symptoms' => ['sometimes', 'array', 'required'],
-            'temperature' => ['sometimes', 'numeric', 'required'],
-            'systolic_blood_pressure' => ['sometimes', 'numeric', 'required'],
-            'diastolic_blood_pressure' => ['sometimes', 'numeric', 'required'],
-            'respiratory_frequency' => ['sometimes', 'numeric', 'required'],
+            'symptoms' => 'array|required',
+            'temperature' => 'numeric|required',
+            'systolic_blood_pressure' => 'numeric|required',
+            'diastolic_blood_pressure' => 'numeric|required',
+            'respiratory_frequency' => 'numeric|required',
         ];
     }
 
+    /**
+     * Get the validation messages that apply to the request.
+     *
+     * @return array
+     */
     public function messages()
     {
         return [
