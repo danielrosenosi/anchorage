@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('patient_id')->constrained('patients');
             $table->integer('status');
+            $table->json('symptoms');
             $table->timestamps();
         });
     }

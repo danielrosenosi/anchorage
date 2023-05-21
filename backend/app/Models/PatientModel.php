@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PatientModel extends Model
 {
@@ -23,7 +24,7 @@ class PatientModel extends Model
 
     protected $table = 'patients';
 
-    public function attendances()
+    public function attendances(): HasMany
     {
         return $this->hasMany(AttendanceModel::class, 'patient_id', 'id');
     }

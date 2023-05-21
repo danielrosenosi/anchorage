@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\PatientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,11 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/patients', [PatientController::class, 'show']);
-Route::post('/patients', [PatientController::class, 'store']);
-Route::put('/patients/{id}', [PatientController::class, 'update']);
-Route::delete('/patients/{id}', [PatientController::class, 'destroy']);
+Route::get('/patients', [PatientController::class, 'show'])->name('patients.show');
+Route::post('/patients', [PatientController::class, 'store'])->name('patients.store');
+Route::put('/patients/{patientId}', [PatientController::class, 'update'])->name('patients.update');
+Route::delete('/patients/{patientId}', [PatientController::class, 'destroy'])->name('patients.destroy');
+
+//routes for attendance
+Route::get('/attendance/{patientId}', [AttendanceController::class, 'show'])->name('attendance.show');
+Route::post('/attendance/{patientId}', [AttendanceController::class, 'store'])->name('attendance.store');

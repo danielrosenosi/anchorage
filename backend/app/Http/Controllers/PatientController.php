@@ -24,20 +24,20 @@ class PatientController extends Controller
         return response()->json($patient);
     }
 
-    public function update(int $id, UpdatePatientRequest $request)
+    public function update(int $patientId, UpdatePatientRequest $request)
     {
         $data = $request->validated();
 
-        $patient = PatientModel::findOrFail($id);
+        $patient = PatientModel::findOrFail($patientId);
 
         $patient->update($data);
 
         return response()->json($patient);
     }
 
-    public function destroy(int $id)
+    public function destroy(int $patientId)
     {
-        $patient = PatientModel::findOrFail($id);
+        $patient = PatientModel::findOrFail($patientId);
 
         $patient->delete();
 
