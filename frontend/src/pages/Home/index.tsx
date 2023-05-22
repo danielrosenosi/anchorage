@@ -7,9 +7,11 @@ import Swal from "sweetalert2";
 import api from "../../app/services/api";
 import { AttendanceStatus } from "../../app/enums/AttendanceStatus";
 import { AttendanceColor } from "../../app/enums/AttendanceColor";
+import { AddPatientModal } from "../../app/components/AddPatientModal";
 
 export function Home() {
     const [patients, setPatients] = useState([]);
+    const [showAddPatientModal, setShowAddPatientModal] = useState(false);
 
     async function getPatients() {
         try {
@@ -53,13 +55,19 @@ export function Home() {
         }
     }
 
+
+
     useEffect(() => {
         getPatients();
     }, []);
 
     return (
         <div className="mx-4 my-4">
-            <Button variant="primary mb-3">
+            <Button
+                variant="primary"
+                className="mb-3"
+                onClick={() => setShowAddPatientModal(true)}
+            >
                 <AiOutlineUserAdd/> Paciente
             </Button>
 
@@ -98,6 +106,8 @@ export function Home() {
                     ))}
                 </tbody>
             </Table>
+
+            <AddPatientModal show={showAddPatientModal} onHide={() => setShowAddPatientModal(false)} />
         </div>
     );
 }
