@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/patients', [PatientController::class, 'show'])->name('patients.show');
+Route::get('/show-patient/{patientId}', [PatientController::class, 'showById'])->name('patient.show-by-id');
 Route::post('/patients', [PatientController::class, 'store'])->name('patients.store');
 Route::put('/patients/{patientId}', [PatientController::class, 'update'])->name('patients.update');
 Route::delete('/patients/{patientId}', [PatientController::class, 'destroy'])->name('patients.destroy');

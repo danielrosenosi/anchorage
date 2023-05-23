@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { AiOutlineUserAdd } from "react-icons/ai";
@@ -7,11 +7,12 @@ import Swal from "sweetalert2";
 import api from "../../app/services/api";
 import { AttendanceStatus } from "../../app/enums/AttendanceStatus";
 import { AttendanceColor } from "../../app/enums/AttendanceColor";
-import { AddPatientModal } from "../../app/components/AddPatientModal";
+import { PatientModal } from "../../app/components/PatientModal";
 
 export function Home() {
     const [patients, setPatients] = useState([]);
-    const [showAddPatientModal, setShowAddPatientModal] = useState(false);
+    const [showPatientModal, setShowPatientModal] = useState(false);
+    const [editPatient, setEditPatient] = useState<number>();
 
     async function getPatients() {
         try {
@@ -66,7 +67,10 @@ export function Home() {
             <Button
                 variant="primary"
                 className="mb-3"
-                onClick={() => setShowAddPatientModal(true)}
+                onClick={() => {
+                    setShowPatientModal(true);
+                    setEditPatient(0);
+                }}
             >
                 <AiOutlineUserAdd/> Paciente
             </Button>
@@ -98,7 +102,12 @@ export function Home() {
                             <td>
                                 <div className="d-flex gap-2">
                                     <Button variant="success">Atender</Button>
-                                    <Button variant="primary">Editar</Button>
+                                    <Button variant="primary" onClick={
+                                        () => {
+                                            setShowPatientModal(true);
+                                            setEditPatient(patient.id)
+                                        }
+                                    }>Editar</Button>
                                     <Button variant="danger" onClick={() => deletePatient(patient.id)}>Excluir</Button>
                                 </div>
                             </td>
@@ -107,7 +116,12 @@ export function Home() {
                 </tbody>
             </Table>
 
-            <AddPatientModal show={showAddPatientModal} onHide={() => setShowAddPatientModal(false)} />
+            <PatientModal
+                show={showPatientModal}
+                onHide={() => setShowPatientModal(false)}
+                getPatients={getPatients}
+                patientId={editPatient}
+            />
         </div>
     );
 }

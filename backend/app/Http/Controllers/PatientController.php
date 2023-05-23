@@ -15,6 +15,13 @@ class PatientController extends Controller
         return response()->json($patients);
     }
 
+    public function showById(int $patientId)
+    {
+        $patient = PatientModel::findOrFail($patientId);
+
+        return response()->json($patient);
+    }
+
     public function store(StorePatientRequest $request)
     {
         $data = $request->validated();
