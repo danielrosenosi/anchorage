@@ -39,12 +39,7 @@ class PatientController extends Controller
     {
         $data = $request->validated();
 
-        $file = $data['image'];
-        $path = $file->store('images');
-        $data['image'] = $path;
-
         $patient = PatientModel::findOrFail($patientId);
-
         $patient->update($data);
 
         return response()->json($patient);

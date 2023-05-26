@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { AiOutlineUserAdd } from "react-icons/ai";
+import { VscEdit } from "react-icons/vsc";
+import { BiTrashAlt } from "react-icons/bi";
+import { GiMedicalPack } from "react-icons/gi";
 import Swal from "sweetalert2";
 
 import api from "../../app/services/api";
@@ -82,6 +85,7 @@ export function Home() {
             >
                 <thead>
                     <tr>
+                        <th>FOTO</th>
                         <th>NOME</th>
                         <th>CONDIÇÃO</th>
                         <th>CPF</th>
@@ -91,7 +95,16 @@ export function Home() {
 
                 <tbody>
                     {patients.map((patient: Patient) => (
-                        <tr key={patient.id}>
+                        <tr key={patient.id} className="justify-content-center">
+                            <td>
+                                <img
+                                    src={"https://via.placeholder.com/150"}
+                                    alt={patient.fullname}
+                                    width="50"
+                                    height="50"
+                                    className="rounded-circle"
+                                />
+                            </td>
                             <td>{patient.fullname}</td>
                             <td>
                                 <span className={`badge bg-${AttendanceColor[patient.last_attendance?.status] ?? 'dark'}`}>
@@ -101,14 +114,25 @@ export function Home() {
                             <td>{patient.cpf}</td>
                             <td>
                                 <div className="d-flex gap-2">
-                                    <Button variant="success">Atender</Button>
-                                    <Button variant="primary" onClick={
-                                        () => {
-                                            setShowPatientModal(true);
-                                            setEditPatient(patient.id)
-                                        }
-                                    }>Editar</Button>
-                                    <Button variant="danger" onClick={() => deletePatient(patient.id)}>Excluir</Button>
+                                    <Button title="Atender Paciente" variant="success">
+                                        <GiMedicalPack/>
+                                    </Button>
+
+                                    <Button
+                                        title="Editar Paciente"
+                                        variant="primary"
+                                        onClick={() => {setShowPatientModal(true); setEditPatient(patient.id)}}
+                                    >
+                                        <VscEdit/>
+                                    </Button>
+
+                                    <Button
+                                        title="Excluir paciente"
+                                        variant="danger"
+                                        onClick={() => deletePatient(patient.id)}
+                                    >
+                                        <BiTrashAlt/>
+                                    </Button>
                                 </div>
                             </td>
                         </tr>

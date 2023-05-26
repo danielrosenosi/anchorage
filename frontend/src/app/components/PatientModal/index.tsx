@@ -66,6 +66,46 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
         }
     }
 
+    async function handleUpdate(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+
+        try {
+            await api.put(`/patients/${patientId}`, {
+                fullname,
+                birthdate,
+                cpf,
+                phone,
+            });
+            
+            Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            }).fire({
+                icon: "success",
+                title: "Paciente atualizado com sucesso!",
+            });
+
+            getPatients();
+            onHide();
+        } catch (error) {
+            console.log(error);
+
+            Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            }).fire({
+                icon: "error",
+                title: "Erro ao atualizar paciente!",
+            });
+        }
+    }
+
     async function getPatientData() {
         try {
             const response = await api.get(`/show-patient/${patientId}`);
@@ -109,7 +149,7 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
                 </Modal.Title>
             </Modal.Header>
 
-            <Form onSubmit={handleSubmit} encType="multipart/form-data">
+            <Form onSubmit={patientId ? handleUpdate : handleSubmit} encType="multipart/form-data">
                 <Modal.Body>
                     <Form.Group className="mb-3">
                         <Form.Label htmlFor="fullname">Nome</Form.Label>
