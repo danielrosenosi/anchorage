@@ -27,7 +27,7 @@ class PatientController extends Controller
         $data = $request->validated();
 
         $file = $data['image'];
-        $path = $file->move('images/', $file->getClientOriginalName());
+        $path = $file->store('patients');
         $data['image'] = $path;
 
         $patient = PatientModel::firstOrCreate($data);

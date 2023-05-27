@@ -99,7 +99,7 @@ export function Home() {
                             <tr key={patient.id} className="justify-content-center">
                                 <td>
                                     <img
-                                        src={`http://localhost:8000/${patient.image}`}
+                                        src={`http://localhost:8000/storage/${patient.image}`}
                                         alt={patient.fullname}
                                         width="50"
                                         height="50"
