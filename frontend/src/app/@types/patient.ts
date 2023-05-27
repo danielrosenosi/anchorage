@@ -15,4 +15,5 @@ type Patient = {
         updated_at: string;
     }
     phone: string;
+    image: string;
 }

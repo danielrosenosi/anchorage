@@ -50,6 +50,11 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
 
             getPatients();
             onHide();
+
+            setFullname("");
+            setBirthdate("");
+            setCpf("");
+            setPhone("");
         } catch (error) {
             console.log(error)
 

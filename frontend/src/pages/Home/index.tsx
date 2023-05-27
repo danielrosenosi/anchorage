@@ -77,68 +77,74 @@ export function Home() {
             >
                 <AiOutlineUserAdd/> Paciente
             </Button>
-
-            <Table
-                striped bordered hover
-                responsive="sm"
-                className="align-items-center"
-            >
-                <thead>
-                    <tr>
-                        <th>FOTO</th>
-                        <th>NOME</th>
-                        <th>CONDIÇÃO</th>
-                        <th>CPF</th>
-                        <th>AÇÕES</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {patients.map((patient: Patient) => (
-                        <tr key={patient.id} className="justify-content-center">
-                            <td>
-                                <img
-                                    src={"https://via.placeholder.com/150"}
-                                    alt={patient.fullname}
-                                    width="50"
-                                    height="50"
-                                    className="rounded-circle"
-                                />
-                            </td>
-                            <td>{patient.fullname}</td>
-                            <td>
-                                <span className={`badge bg-${AttendanceColor[patient.last_attendance?.status] ?? 'dark'}`}>
-                                    {AttendanceStatus[patient.last_attendance?.status] ?? "NÃO ATENDIDO"}
-                                </span>
-                            </td>
-                            <td>{patient.cpf}</td>
-                            <td>
-                                <div className="d-flex gap-2">
-                                    <Button title="Atender Paciente" variant="success">
-                                        <GiMedicalPack/>
-                                    </Button>
-
-                                    <Button
-                                        title="Editar Paciente"
-                                        variant="primary"
-                                        onClick={() => {setShowPatientModal(true); setEditPatient(patient.id)}}
-                                    >
-                                        <VscEdit/>
-                                    </Button>
-
-                                    <Button
-                                        title="Excluir paciente"
-                                        variant="danger"
-                                        onClick={() => deletePatient(patient.id)}
-                                    >
-                                        <BiTrashAlt/>
-                                    </Button>
-                                </div>
-                            </td>
+            
+            <div className="border rounded-3">
+                <Table
+                    striped bordered hover
+                    responsive="sm"
+                    className="align-items-center overflow-hidden border rounded-3"
+                >
+                    <thead>
+                        <tr>
+                            <th>FOTO</th>
+                            <th>NOME</th>
+                            <th>CONDIÇÃO</th>
+                            <th>CPF</th>
+                            <th>AÇÕES</th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
+                    </thead>
+
+                    <tbody>
+                        {patients.map((patient: Patient) => (
+                            <tr key={patient.id} className="justify-content-center">
+                                <td>
+                                    <img
+                                        src={`http://localhost:8000/${patient.image}`}
+                                        alt={patient.fullname}
+                                        width="50"
+                                        height="50"
+                                        className="rounded-circle"
+                                    />
+                                </td>
+                                <td>
+                                    <p className="mt-3">{patient.fullname}</p>
+                                </td>
+                                <td>
+                                    <span className={`mt-3 badge bg-${AttendanceColor[patient.last_attendance?.status] ?? 'dark'}`}>
+                                        {AttendanceStatus[patient.last_attendance?.status] ?? "NÃO ATENDIDO"}
+                                    </span>
+                                </td>
+                                <td>
+                                    <p className="mt-3">{patient.cpf}</p>
+                                </td>
+                                <td>
+                                    <div className="d-flex gap-2 mt-2">
+                                        <Button title="Atender Paciente" variant="success">
+                                            <GiMedicalPack/>
+                                        </Button>
+
+                                        <Button
+                                            title="Editar Paciente"
+                                            variant="primary"
+                                            onClick={() => {setShowPatientModal(true); setEditPatient(patient.id)}}
+                                        >
+                                            <VscEdit/>
+                                        </Button>
+
+                                        <Button
+                                            title="Excluir paciente"
+                                            variant="danger"
+                                            onClick={() => deletePatient(patient.id)}
+                                        >
+                                            <BiTrashAlt/>
+                                        </Button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
 
             <PatientModal
                 show={showPatientModal}
