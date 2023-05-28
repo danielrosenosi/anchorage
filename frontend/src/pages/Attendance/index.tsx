@@ -16,6 +16,8 @@ import api from "../../app/services/api";
 import { Temperature } from "../../app/components/VitalSigns/Temperature";
 import { AttendanceColor } from "../../app/enums/AttendanceColor";
 import { AttendanceStatus } from "../../app/enums/AttendanceStatus";
+import { BloodPressure } from "../../app/components/VitalSigns/BloodPressure";
+import { RespirationFrequency } from '../../app/components/VitalSigns/RespirationFrequency/index';
 
 export function Attendance() {
     const [patient, setPatient] = useState({} as Patient);
@@ -51,7 +53,7 @@ export function Attendance() {
             </Row>
 
             <Row className="mb-3">
-                <Col md={6}>
+                <Col md={12}>
                     <Card>
                         <Card.Body className="pt-9 pb-3">
                             <Row>
@@ -78,7 +80,9 @@ export function Attendance() {
                         </Card.Body>
                     </Card>
                 </Col>
+            </Row>
 
+            <Row className="mb-3">
                 <Col md={6}>
                     <Card>
                         <Card.Body className="pt-9 pb-3">
@@ -90,22 +94,22 @@ export function Attendance() {
                                 </Col>
 
                                 <Col md={6}>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Pressão Arterial</Form.Label>
+                                    <BloodPressure
+                                        onChangeSistolic={(value) => console.log(value.target.value)}
+                                        onChangeDiastolic={(value) => console.log(value.target.value)}
+                                    />
+                                </Col>
 
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Pressão"
-                                        />
-                                    </Form.Group>
+                                <Col md={12}>
+                                    <RespirationFrequency
+                                        onChange={(value) => console.log(value.target.value)}
+                                    />
                                 </Col>
                             </Row>
                         </Card.Body>
                     </Card>
                 </Col>
-            </Row>
 
-            <Row>
                 <Col md={6}>
                     <Accordion>
                         <Accordion.Item eventKey="0">
