@@ -18,6 +18,7 @@ class PatientController extends Controller
     public function showById(int $patientId)
     {
         $patient = PatientModel::findOrFail($patientId);
+        $patient->load('allAttendances');
 
         return response()->json($patient);
     }
