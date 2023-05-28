@@ -31,6 +31,8 @@ export function Home() {
         try {
             await api.delete(`/patients/${id}`);
 
+            getPatients();
+
             Swal.mixin({
                 toast: true,
                 position: "top-end",
@@ -41,8 +43,6 @@ export function Home() {
                 icon: "success",
                 title: "Paciente excluído com sucesso!",
             });
-
-            getPatients();
         } catch (error) {
             console.log(error);
 
@@ -78,7 +78,7 @@ export function Home() {
                 <AiOutlineUserAdd/> Paciente
             </Button>
             
-            <div className="border rounded-3">
+            <div className="border rounded-3 ">
                 <Table
                     striped bordered hover
                     responsive="sm"

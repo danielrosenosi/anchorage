@@ -37,6 +37,8 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
                 }
             });
 
+            getPatients();
+
             Swal.mixin({
                 toast: true,
                 position: "top-end",
@@ -48,7 +50,6 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
                 title: "Paciente adicionado com sucesso!",
             });
 
-            getPatients();
             onHide();
 
             setFullname("");
