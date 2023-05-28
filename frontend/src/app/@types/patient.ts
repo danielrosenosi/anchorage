@@ -14,6 +14,12 @@ type Patient = {
         created_at: string;
         updated_at: string;
     }
+    all_attendances: {
+        map: Function;
+        id: number;
+        status: number;
+        created_at: string;
+    }
     phone: string;
     image: string;
 }
