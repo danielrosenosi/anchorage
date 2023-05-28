@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Badge, Table } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { VscEdit } from "react-icons/vsc";
 import { BiTrashAlt } from "react-icons/bi";
-import { GiMedicalPack } from "react-icons/gi";
+import { FiArrowRight } from "react-icons/fi";
 import Swal from "sweetalert2";
 
 import api from "../../app/services/api";
@@ -16,6 +17,7 @@ export function Home() {
     const [patients, setPatients] = useState([]);
     const [showPatientModal, setShowPatientModal] = useState(false);
     const [editPatient, setEditPatient] = useState<number>();
+    const navigate = useNavigate();
 
     async function getPatients() {
         try {
@@ -59,7 +61,9 @@ export function Home() {
         }
     }
 
-
+    function handleAttendance(patientId: number) {
+        navigate(`/attendance/${patientId}`);
+    }
 
     useEffect(() => {
         getPatients();
@@ -68,7 +72,7 @@ export function Home() {
     return (
         <div className="mx-4 my-4">
             <Button
-                variant="primary"
+                variant="outline-primary"
                 className="mb-3"
                 onClick={() => {
                     setShowPatientModal(true);
@@ -101,31 +105,39 @@ export function Home() {
                                     <img
                                         src={`http://localhost:8000/storage/${patient.image}`}
                                         alt={patient.fullname}
-                                        width="50"
-                                        height="50"
-                                        className="rounded-circle"
+                                        width="60"
+                                        height="60"
+                                        className="rounded-3"
                                     />
                                 </td>
                                 <td>
                                     <p className="mt-3">{patient.fullname}</p>
                                 </td>
                                 <td>
-                                    <span className={`mt-3 badge bg-${AttendanceColor[patient.last_attendance?.status] ?? 'dark'}`}>
+                                    <Badge
+                                        pill
+                                        bg={`${AttendanceColor[patient.last_attendance?.status] ?? 'dark'}`}
+                                        className="mt-3"
+                                    >
                                         {AttendanceStatus[patient.last_attendance?.status] ?? "NÃO ATENDIDO"}
-                                    </span>
+                                    </Badge>
                                 </td>
                                 <td>
                                     <p className="mt-3">{patient.cpf}</p>
                                 </td>
                                 <td>
                                     <div className="d-flex gap-2 mt-2">
-                                        <Button title="Atender Paciente" variant="success">
-                                            <GiMedicalPack/>
+                                        <Button
+                                            title="Atender Paciente"
+                                            variant="outline-success"
+                                            onClick={() => handleAttendance(patient.id)}
+                                        >
+                                            <FiArrowRight/>
                                         </Button>
 
                                         <Button
                                             title="Editar Paciente"
-                                            variant="primary"
+                                            variant="outline-primary"
                                             onClick={() => {setShowPatientModal(true); setEditPatient(patient.id)}}
                                         >
                                             <VscEdit/>
@@ -133,7 +145,7 @@ export function Home() {
 
                                         <Button
                                             title="Excluir paciente"
-                                            variant="danger"
+                                            variant="outline-danger"
                                             onClick={() => deletePatient(patient.id)}
                                         >
                                             <BiTrashAlt/>
@@ -145,7 +157,7 @@ export function Home() {
                     </tbody>
                 </Table>
             </div>
-
+            
             <PatientModal
                 show={showPatientModal}
                 onHide={() => setShowPatientModal(false)}
