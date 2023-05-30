@@ -55,7 +55,7 @@ export function Attendance() {
             <Row className="mb-3">
                 <Col md={12}>
                     <Card>
-                        <Card.Body className="pt-9 pb-3">
+                        <Card.Body>
                             <Row>
                                 <Col md="auto">
                                     <img
@@ -99,11 +99,27 @@ export function Attendance() {
                                         onChangeDiastolic={(value) => console.log(value.target.value)}
                                     />
                                 </Col>
+                            </Row>
 
+                            <Row>
                                 <Col md={12}>
                                     <RespirationFrequency
                                         onChange={(value) => console.log(value.target.value)}
                                     />
+                                </Col>
+                            </Row>
+
+                            <Row>
+                                <Col md={12}>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label>Sintomas</Form.Label>
+
+                                        {/* <input
+                                            type="checkbox"
+                                            className="form-check-input"
+                                            id="fever"
+                                        /> */}
+                                    </Form.Group>
                                 </Col>
                             </Row>
                         </Card.Body>
