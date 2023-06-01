@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
-import { Badge } from "react-bootstrap";
+import { Badge, Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { Col } from "react-bootstrap";
@@ -37,13 +37,14 @@ export function Attendance() {
     }, [id]);
 
     return (
-        <div className="mx-4 my-4 attendance-page">
+        <Container className="my-4 attendance-body">
             <Row className="mb-3">
                 <Col md={3}>
                     <Button
                         variant="danger"
                         onClick={() => { navigate("/") }}
                         title="Voltar para a página inicial"
+                        className="d-flex justify-content-start align-items-center gap-2"
                     >
                         <BiArrowBack /> Voltar
                     </Button>
@@ -51,7 +52,7 @@ export function Attendance() {
             </Row>
 
             <Row className="mb-3">
-                <Col md={6}>
+                <Col md={10}>
                     <Card>
                         <Card.Body className="pt-9 pb-3">
                             <Row>
@@ -78,35 +79,10 @@ export function Attendance() {
                         </Card.Body>
                     </Card>
                 </Col>
-
-                <Col md={6}>
-                    <Card>
-                        <Card.Body className="pt-9 pb-3">
-                            <Row>
-                                <Col md={6}>
-                                    <Temperature
-                                        onChange={(value) => console.log(value.target.value)}
-                                    />
-                                </Col>
-
-                                <Col md={6}>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Pressão Arterial</Form.Label>
-
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Pressão"
-                                        />
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-                        </Card.Body>
-                    </Card>
-                </Col>
             </Row>
 
-            <Row>
-                <Col md={6}>
+            <Row className="mb-3">
+                <Col md={10}>
                     <Accordion>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>Últimos antedimentos</Accordion.Header>
@@ -141,6 +117,34 @@ export function Attendance() {
                     </Accordion>
                 </Col>
             </Row>
-        </div>
+
+            <Row className="mb-3">
+                <Col md={10}>
+                    <Card>
+                        <Card.Body className="pt-9 pb-3">
+                            <Row>
+                                <Col md={6}>
+                                    <Temperature
+                                        onChange={(value) => console.log(value.target.value)}
+                                    />
+                                </Col>
+
+                                <Col md={6}>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label>Pressão Arterial</Form.Label>
+
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Pressão"
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+
+        </Container>
     );
 }

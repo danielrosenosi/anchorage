@@ -72,8 +72,8 @@ export function Home() {
     return (
         <div className="mx-4 my-4">
             <Button
-                variant="outline-primary"
-                className="mb-3"
+                variant="primary"
+                className="d-flex justify-content-start align-items-center gap-2 mb-3"
                 onClick={() => {
                     setShowPatientModal(true);
                     setEditPatient(0);
@@ -82,7 +82,7 @@ export function Home() {
                 <AiOutlineUserAdd/> Paciente
             </Button>
             
-            <div className="border rounded-3 ">
+            <div className="border rounded-3">
                 <Table
                     striped bordered hover
                     responsive="sm"
@@ -129,7 +129,7 @@ export function Home() {
                                     <div className="d-flex gap-2 mt-2">
                                         <Button
                                             title="Atender Paciente"
-                                            variant="outline-success"
+                                            variant="success"
                                             onClick={() => handleAttendance(patient.id)}
                                         >
                                             <FiArrowRight/>
@@ -137,7 +137,7 @@ export function Home() {
 
                                         <Button
                                             title="Editar Paciente"
-                                            variant="outline-primary"
+                                            variant="primary"
                                             onClick={() => {setShowPatientModal(true); setEditPatient(patient.id)}}
                                         >
                                             <VscEdit/>
@@ -145,7 +145,7 @@ export function Home() {
 
                                         <Button
                                             title="Excluir paciente"
-                                            variant="outline-danger"
+                                            variant="danger"
                                             onClick={() => deletePatient(patient.id)}
                                         >
                                             <BiTrashAlt/>
