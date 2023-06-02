@@ -16,6 +16,7 @@ import api from "../../app/services/api";
 import { Temperature } from "../../app/components/VitalSigns/Temperature";
 import { AttendanceColor } from "../../app/enums/AttendanceColor";
 import { AttendanceStatus } from "../../app/enums/AttendanceStatus";
+import { RespirationFrequency } from "../../app/components/VitalSigns/RespirationFrequency";
 
 export function Attendance() {
     const [patient, setPatient] = useState({} as Patient);
@@ -130,14 +131,13 @@ export function Attendance() {
                                 </Col>
 
                                 <Col md={6}>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Pressão Arterial</Form.Label>
+                                    <RespirationFrequency />
+                                </Col>
+                            </Row>
 
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Pressão"
-                                        />
-                                    </Form.Group>
+                            <Row>
+                                <Col md={12}>
+                                    
                                 </Col>
                             </Row>
                         </Card.Body>
