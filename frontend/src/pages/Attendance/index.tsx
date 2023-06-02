@@ -17,6 +17,7 @@ import { Temperature } from "../../app/components/VitalSigns/Temperature";
 import { AttendanceColor } from "../../app/enums/AttendanceColor";
 import { AttendanceStatus } from "../../app/enums/AttendanceStatus";
 import { RespirationFrequency } from "../../app/components/VitalSigns/RespirationFrequency";
+import { BloodPressure } from "../../app/components/VitalSigns/BloodPressure";
 
 export function Attendance() {
     const [patient, setPatient] = useState({} as Patient);
@@ -55,7 +56,7 @@ export function Attendance() {
             <Row className="mb-3">
                 <Col md={10}>
                     <Card>
-                        <Card.Body className="pt-9 pb-3">
+                        <Card.Body>
                             <Row>
                                 <Col md="auto">
                                     <img
