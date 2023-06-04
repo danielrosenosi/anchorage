@@ -10,7 +10,7 @@ class PatientController extends Controller
 {
     public function show()
     {
-        $patients = PatientModel::with('lastAttendance')->get();
+        $patients = PatientModel::with('lastAttendance')->paginate(10);
 
         return response()->json($patients);
     }

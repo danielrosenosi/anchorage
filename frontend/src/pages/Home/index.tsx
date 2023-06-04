@@ -7,6 +7,7 @@ import { VscEdit } from "react-icons/vsc";
 import { BiTrashAlt } from "react-icons/bi";
 import { FiArrowRight } from "react-icons/fi";
 import Swal from "sweetalert2";
+import dayjs from "dayjs";
 
 import api from "../../app/services/api";
 import { AttendanceStatus } from "../../app/enums/AttendanceStatus";
@@ -19,11 +20,14 @@ export function Home() {
     const [editPatient, setEditPatient] = useState<number>();
     const navigate = useNavigate();
 
+    let relativeTime = require('dayjs/plugin/relativeTime')
+    dayjs.extend(relativeTime)
+
     async function getPatients() {
         try {
             const response = await api.get("/patients");
 
-            setPatients(response.data);
+            setPatients(response.data.data);
         } catch (error) {
             console.log(error);
         }
@@ -94,6 +98,7 @@ export function Home() {
                             <th>NOME</th>
                             <th>CONDIÇÃO</th>
                             <th>CPF</th>
+                            <th>IDADE</th>
                             <th>AÇÕES</th>
                         </tr>
                     </thead>
@@ -126,7 +131,10 @@ export function Home() {
                                     <p className="mt-3">{patient.cpf}</p>
                                 </td>
                                 <td>
-                                    <div className="d-flex gap-2 mt-2">
+                                    <p className="mt-3">{dayjs().year() - dayjs(patient.birthdate).year()} anos</p>
+                                </td>
+                                <td>
+                                    <div className="d-flex gap-2 mt-2"> 
                                         <Button
                                             title="Atender Paciente"
                                             variant="success"
