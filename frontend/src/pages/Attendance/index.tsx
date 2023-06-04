@@ -18,6 +18,8 @@ import { AttendanceColor } from "../../app/enums/AttendanceColor";
 import { AttendanceStatus } from "../../app/enums/AttendanceStatus";
 import { RespirationFrequency } from "../../app/components/VitalSigns/RespirationFrequency";
 import { BloodPressure } from "../../app/components/VitalSigns/BloodPressure";
+import { PatientInformation } from "../../app/components/PatientInformation";
+import { LastAttendances } from "../../app/components/LastAttendances";
 
 export function Attendance() {
     const [patient, setPatient] = useState({} as Patient);
@@ -54,70 +56,16 @@ export function Attendance() {
             </Row>
 
             <Row className="mb-3">
-                <Col md={10}>
-                    <Card>
-                        <Card.Body>
-                            <Row>
-                                <Col md="auto">
-                                    <img
-                                        src={`http://localhost:8000/storage/${patient.image}`}
-                                        alt={patient.fullname}
-                                        width="80"
-                                        height="80"
-                                        className="rounded-3"
-                                    />
-                                </Col>
-
-                                <Col md={8}>
-                                    <div className="d-flex flex-column fw-bolder fs-6">
-                                        <label className="gap-3">
-                                            {patient.fullname} <Badge pill bg="danger">INFECTADO</Badge>
-                                        </label>
-                                        <label className="text-secondary">{patient.cpf}</label>
-                                        <label className="text-secondary">{dayjs(patient.birthdate).format("DD/MM/YYYY")}</label>
-                                    </div>
-                                </Col>
-                            </Row>
-                        </Card.Body>
-                    </Card>
-                </Col>
+                <PatientInformation
+                    fullname={patient.fullname}
+                    birthdate={patient.birthdate}
+                    cpf={patient.cpf}
+                    image={patient.image}
+                />
             </Row>
 
             <Row className="mb-3">
-                <Col md={10}>
-                    <Accordion>
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>Últimos antedimentos</Accordion.Header>
-
-                            <Accordion.Body>
-                                <Table>
-                                    <thead>
-                                        <tr>
-                                            <th>DATA</th>
-                                            <th>STATUS</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        {patient.all_attendances?.map((attendance: any) => (
-                                            <tr key={attendance.id}>
-                                                <td>{dayjs(attendance.created_at).format("DD/MM/YYYY")}</td>
-                                                <td>
-                                                    <Badge
-                                                        pill
-                                                        bg={`${AttendanceColor[attendance.status] ?? 'dark'}`}
-                                                    >
-                                                        {AttendanceStatus[attendance.status]}
-                                                    </Badge>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </Table>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                </Col>
+                <LastAttendances allAttendances={patient.all_attendances} />
             </Row>
 
             <Row className="mb-3">
