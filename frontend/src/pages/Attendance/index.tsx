@@ -85,8 +85,8 @@ export function Attendance() {
                             </Row>
 
                             <Row>
-                                <Col md={12}>
-                                    
+                                <Col md={6}>
+                                    <BloodPressure />
                                 </Col>
                             </Row>
                         </Card.Body>

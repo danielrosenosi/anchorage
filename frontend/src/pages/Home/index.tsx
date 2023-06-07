@@ -77,7 +77,7 @@ export function Home() {
         <div className="mx-4 my-4">
             <Button
                 variant="primary"
-                className="d-flex justify-content-start align-items-center gap-2 mb-3"
+                className="d-flex align-items-center gap-2 mb-3"
                 onClick={() => {
                     setShowPatientModal(true);
                     setEditPatient(0);
@@ -93,7 +93,7 @@ export function Home() {
                     className="align-items-center overflow-hidden border rounded-3"
                 >
                     <thead>
-                        <tr>
+                        <tr className="bg-primary text-white">
                             <th>FOTO</th>
                             <th>NOME</th>
                             <th>CONDIÇÃO</th>

@@ -1,6 +1,7 @@
 import { Form } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
+import { FiX } from "react-icons/fi";
 
 type BloodPressureProps = {
     systolic?: number;
@@ -23,8 +24,12 @@ export function BloodPressure({ systolic, diastolic, onChangeSistolic, onChangeD
                         onChange={onChangeSistolic}
                     />
                 </Col>
+                
+                <Col md={1}>
+                    <FiX />
+                </Col>
 
-                <Col md={6}>
+                <Col md={5}>
                     <Form.Control
                         type="number"
                         placeholder="Diastólica"
