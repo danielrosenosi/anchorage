@@ -14,7 +14,7 @@ type Props = {
 export function LastAttendances({ allAttendances }: Props) {
 
     return (
-        <Col md={10}>
+        <Col md={12}>
             <Accordion>
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>Últimos antedimentos</Accordion.Header>
