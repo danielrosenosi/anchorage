@@ -15,29 +15,37 @@ export function BloodPressure({ systolic, diastolic, onChangeSistolic, onChangeD
         <Form.Group className="mb-3">
             <Form.Label>Pressão arterial</Form.Label>
 
-            <Row>
-                <Col md={6}>
-                    <Form.Control
-                        type="number"
-                        placeholder="Sistólica"
-                        value={systolic}
-                        onChange={onChangeSistolic}
-                    />
-                </Col>
-                
-                <Col md={1}>
-                    <FiX />
-                </Col>
+            <Col md={12}>
+                <Row>
+                    <Col md={5}>
+                        <Form.Control
+                            type="number"
+                            placeholder="Sistólica"
+                            id="systolic"
+                            name="systolic"
+                            required
+                            value={systolic}
+                            onChange={onChangeSistolic}
+                        />
+                    </Col>
 
-                <Col md={5}>
-                    <Form.Control
-                        type="number"
-                        placeholder="Diastólica"
-                        value={diastolic}
-                        onChange={onChangeDiastolic}
-                    />
-                </Col>
-            </Row>
+                    <Col md={2} className="text-center mt-1">
+                        <FiX />
+                    </Col>
+
+                    <Col md={5}>
+                        <Form.Control
+                            type="number"
+                            placeholder="Diastólica"
+                            id="diastolic"
+                            name="diastolic"
+                            required
+                            value={diastolic}
+                            onChange={onChangeDiastolic}
+                        />
+                    </Col>
+                </Row>
+            </Col>
         </Form.Group>
     )
 }
