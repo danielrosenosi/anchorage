@@ -13,20 +13,23 @@ import api from "../../app/services/api";
 import { AttendanceStatus } from "../../app/enums/AttendanceStatus";
 import { AttendanceColor } from "../../app/enums/AttendanceColor";
 import { PatientModal } from "../../app/components/PatientModal";
+import { Pagination } from "../../app/components/Pagination";
 
 export function Home() {
     const [patients, setPatients] = useState([]);
     const [showPatientModal, setShowPatientModal] = useState(false);
     const [editPatient, setEditPatient] = useState<number>();
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(0);
     const navigate = useNavigate();
-
-    let relativeTime = require('dayjs/plugin/relativeTime')
-    dayjs.extend(relativeTime)
 
     async function getPatients() {
         try {
-            const response = await api.get("/patients");
+            const response = await api.get(`/patients?page=${page}`);
 
+            setTotalPages(response.data.total);
+            setItemsPerPage(response.data.per_page);
             setPatients(response.data.data);
         } catch (error) {
             console.log(error);
@@ -65,13 +68,9 @@ export function Home() {
         }
     }
 
-    function handleAttendance(patientId: number) {
-        navigate(`/attendance/${patientId}`);
-    }
-
     useEffect(() => {
         getPatients();
-    }, []);
+    }, [page]);
 
     return (
         <div className="mx-4 my-4">
@@ -86,7 +85,7 @@ export function Home() {
                 <AiOutlineUserAdd/> Paciente
             </Button>
             
-            <div className="border rounded-3">
+            <div className="border rounded-3 mb-3">
                 <Table
                     striped bordered hover
                     responsive="sm"
@@ -138,7 +137,7 @@ export function Home() {
                                         <Button
                                             title="Atender Paciente"
                                             variant="success"
-                                            onClick={() => handleAttendance(patient.id)}
+                                            onClick={() => navigate(`/attendance/${patient.id}`)}
                                         >
                                             <FiArrowRight/>
                                         </Button>
@@ -164,6 +163,14 @@ export function Home() {
                         ))}
                     </tbody>
                 </Table>
+            </div>
+            
+            <div className="d-flex justify-content-center">
+                <Pagination
+                    itemsPerPage={itemsPerPage}
+                    changeSelectedPage={setPage}
+                    totalPages={totalPages}
+                />
             </div>
             
             <PatientModal

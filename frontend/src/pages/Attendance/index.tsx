@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button, Container, Form } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { Col } from "react-bootstrap";
@@ -13,11 +13,17 @@ import { BloodPressure } from "../../app/components/VitalSigns/BloodPressure";
 import { PatientInformation } from "../../app/components/PatientInformation";
 import { LastAttendances } from "../../app/components/LastAttendances";
 import { CheckboxInput } from "../../app/components/CheckboxInput";
+import Swal from "sweetalert2";
 
 export function Attendance() {
     const [patient, setPatient] = useState({} as Patient);
-    const [symptoms, setSymptoms] = useState([] as string[]);
+    const [symptoms, setSymptoms] = useState({});
+    const [temperature, setTemperature] = useState("");
+    const [respirationFrequency, setRespirationFrequency] = useState("");
+    const [sistolicBloodPressure, setSistolicBloodPressure] = useState("");
+    const [diastolicBloodPressure, setDiastolicBloodPressure] = useState("");
     const { id } = useParams();
+    const navigate = useNavigate();
 
     async function getPatientDataForAttendance() {
         try {
@@ -26,6 +32,39 @@ export function Attendance() {
             setPatient(response.data);
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    async function handleSubmitAttendance(event: React.FormEvent) {
+        event.preventDefault();
+
+        try {
+            await api.post(`/attendance/${id}`, {
+                systolic_blood_pressure: sistolicBloodPressure,
+                diastolic_blood_pressure: diastolicBloodPressure,
+                respiratory_frequency: respirationFrequency,
+                temperature,
+                symptoms
+            });
+
+            Swal.fire({
+                icon: 'success',
+                title: `Paciente ${patient.fullname} atendido com sucesso!`,
+                showConfirmButton: true,
+                timer: 1500
+            });
+
+            navigate("/");
+        } catch (error) {
+            console.log(error);
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Erro ao atender o paciente ${patient.fullname}!`,
+                showConfirmButton: true,
+                timer: 1500
+            });
         }
     }
 
@@ -54,78 +93,94 @@ export function Attendance() {
                 <Col md={12}>
                     <Card>
                         <Card.Body className="pt-9 pb-3">
-                            <Form>
+                            <Form onSubmit={handleSubmitAttendance}>
                                 <Row>
                                     <Col md={5}>
                                         <Temperature
-                                            onChange={(event: any) => console.log(event.target.value)}
+                                            onChange={(event: any) => setTemperature(event.target.value)}
                                         />
                                     
                                         <RespirationFrequency
-                                            onChange={(event: any) => console.log(event.target.value)}
+                                            onChange={(event: any) => setRespirationFrequency(event.target.value)}
                                         />
 
                                         <BloodPressure
-                                            onChangeDiastolic={(event: any) => console.log(event.target.value)}
-                                            onChangeSistolic={(event: any) => console.log(event.target.value)}
+                                            onChangeDiastolic={(event: any) => setDiastolicBloodPressure(event.target.value)}
+                                            onChangeSistolic={(event: any) => setSistolicBloodPressure(event.target.value)}
                                         />
                                     </Col>
 
                                     <Col md="auto">
                                         <CheckboxInput
                                             name="fever"
-                                            value="1"
+                                            value="Febre"
                                             label="Febre"
-                                            onChange={(value) => console.log(value.target.value)}
+                                            onChange={(event: any) => setSymptoms(
+                                                {...symptoms, [event.target.value]: event.target.value}
+                                            )}
                                         />
 
                                         <CheckboxInput
                                             name="coryza"
-                                            value="1"
+                                            value="Coriza"
                                             label="Coriza"
-                                            onChange={(value) => console.log(value.target.value)}
+                                            onChange={(event: any) => setSymptoms(
+                                                {...symptoms, [event.target.value]: event.target.value}
+                                            )}
                                         />
 
                                         <CheckboxInput
                                             name="nariz-entupido"
-                                            value="1"
+                                            value="Nariz Entupido"
                                             label="Nariz Entupido"
-                                            onChange={(value) => console.log(value.target.value)}
+                                            onChange={(event: any) => setSymptoms(
+                                                {...symptoms, [event.target.value]: event.target.value}
+                                            )}
                                         />
 
                                         <CheckboxInput
                                             name="fatigue"
-                                            value="1"
+                                            value="Cansaço"
                                             label="Cansaço"
-                                            onChange={(value) => console.log(value.target.value)}
+                                            onChange={(event: any) => setSymptoms(
+                                                {...symptoms, [event.target.value]: event.target.value}
+                                            )}
                                         />
 
                                         <CheckboxInput
                                             name="cough"
-                                            value="1"
+                                            value="Tosse"
                                             label="Tosse"
-                                            onChange={(value) => console.log(value.target.value)}
+                                            onChange={(event: any) => setSymptoms(
+                                                {...symptoms, [event.target.value]: event.target.value}
+                                            )}
                                         />
                                         
                                         <CheckboxInput
                                             name="headache"
-                                            value="1"
+                                            value="Dor de cabeça"
                                             label="Dor de cabeça"
-                                            onChange={(value) => console.log(value.target.value)}
+                                            onChange={(event: any) => setSymptoms(
+                                                {...symptoms, [event.target.value]: event.target.value}
+                                            )}
                                         />
 
                                         <CheckboxInput
                                             name="diarrhea"
-                                            value="1"
+                                            value="Diarréia"
                                             label="Diarréia"
-                                            onChange={(value) => console.log(value.target.value)}
+                                            onChange={(event: any) => setSymptoms(
+                                                {...symptoms, [event.target.value]: event.target.value}
+                                            )}
                                         />
 
                                         <CheckboxInput
                                             name="general-discomfort"
-                                            value="1"
+                                            value="Mal estar geral"
                                             label="Mal estar geral"
-                                            onChange={(value) => console.log(value.target.value)}
+                                            onChange={(event: any) => setSymptoms(
+                                                {...symptoms, [event.target.value]: event.target.value}
+                                            )}
                                         />
                                     </Col>
 
@@ -133,37 +188,47 @@ export function Attendance() {
 
                                         <CheckboxInput
                                             name="sore-throat"
-                                            value="1"
+                                            value="Dor de garganta"
                                             label="Dor de garganta"
-                                            onChange={(value) => console.log(value.target.value)}
+                                            onChange={(event: any) => setSymptoms(
+                                                {...symptoms, [event.target.value]: event.target.value}
+                                            )}
                                         />
 
                                         <CheckboxInput
                                             name="difficulty-breathingver"
-                                            value="1"
+                                            value="Dificuldade de respirar"
                                             label="Dificuldade de respirar"
-                                            onChange={(value) => console.log(value.target.value)}
+                                            onChange={(event: any) => setSymptoms(
+                                                {...symptoms, [event.target.value]: event.target.value}
+                                            )}
                                         />
 
                                         <CheckboxInput
                                             name="lack-of-taste"
-                                            value="1"
+                                            value="Falta de paladar"
                                             label="Falta de paladar"
-                                            onChange={(value) => console.log(value.target.value)}
+                                            onChange={(event: any) => setSymptoms(
+                                                {...symptoms, [event.target.value]: event.target.value}
+                                            )}
                                         />
 
                                         <CheckboxInput
                                             name="lack-of-sense-of-smell"
-                                            value="1"
+                                            value="Falta de olfato"
                                             label="Falta de olfato"
-                                            onChange={(value) => console.log(value.target.value)}
+                                            onChange={(event: any) => setSymptoms(
+                                                {...symptoms, [event.target.value]: event.target.value}
+                                            )}
                                         />
                                         
                                         <CheckboxInput
                                             name="difficulty-in-locomotion"
-                                            value="1"
+                                            value="Dificuldade de locomoção"
                                             label="Dificuldade de locomoção"
-                                            onChange={(value) => console.log(value.target.value)}
+                                            onChange={(event: any) => setSymptoms(
+                                                {...symptoms, [event.target.value]: event.target.value}
+                                            )}
                                         />
                                     </Col>
 
