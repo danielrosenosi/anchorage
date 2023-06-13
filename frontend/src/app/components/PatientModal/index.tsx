@@ -1,10 +1,13 @@
 import { ChangeEvent, useState, useEffect } from 'react';
+import { cpf } from 'cpf-cnpj-validator';
+import Swal from 'sweetalert2';
+import dayjs from 'dayjs';
 import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
-import Swal from 'sweetalert2';
 
 import api from '../../services/api';
+
 import { InputMask } from '../InputMask';
 
 type Props = {
@@ -17,12 +20,42 @@ type Props = {
 export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
     const [fullname, setFullname] = useState<string>("");
     const [birthdate, setBirthdate] = useState<string>("");
-    const [cpf, setCpf] = useState<string>("");
+    const [identifier, setIdentifier] = useState<string>("");
     const [phone, setPhone] = useState<string>("");
     const [image, setImage] = useState<File>();
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+
+        if(dayjs(birthdate).isAfter(dayjs())) {
+            Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            }).fire({
+                icon: "error",
+                title: "Data de nascimento não deve ser futura!",
+            });
+
+            return;
+        }
+
+        if(!cpf.isValid(identifier)) {
+            Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            }).fire({
+                icon: "error",
+                title: "CPF inválido!",
+            });
+
+            return;
+        }
         
         try {
             await api.post("/patients", {
@@ -54,7 +87,7 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
 
             setFullname("");
             setBirthdate("");
-            setCpf("");
+            setIdentifier("");
             setPhone("");
         } catch (error) {
             console.log(error)
@@ -118,7 +151,7 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
 
             setFullname(response.data.fullname);
             setBirthdate(response.data.birthdate.split("T")[0]);
-            setCpf(response.data.cpf);
+            setIdentifier(response.data.cpf);
             setPhone(response.data.phone);
         } catch (error) {
             console.log(error);
@@ -142,7 +175,7 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
         } else {
             setFullname("");
             setBirthdate("");
-            setCpf("");
+            setIdentifier("");
             setPhone("");
         }
     }, [patientId]);
@@ -193,8 +226,8 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
                             mask="999.999.999-99"
                             id="cpf"
                             name="cpf"
-                            value={cpf}
-                            onChange={(event: ChangeEvent<HTMLInputElement>) => setCpf(event.target.value)}
+                            value={identifier}
+                            onChange={(event: ChangeEvent<HTMLInputElement>) => setIdentifier(event.target.value)}
                         />
                     </Form.Group>
 
