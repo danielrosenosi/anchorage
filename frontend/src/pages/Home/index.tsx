@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Badge, Table } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import { AiOutlineUserAdd } from "react-icons/ai";
-import { VscEdit } from "react-icons/vsc";
-import { BiTrashAlt } from "react-icons/bi";
-import { FiArrowRight } from "react-icons/fi";
-import Swal from "sweetalert2";
 import dayjs from "dayjs";
+import Swal from "sweetalert2";
+import { Badge  } from "react-bootstrap";
+import { Table  } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { AiOutlineUserAdd } from 'react-icons/ai';
+import { FiArrowRight } from "react-icons/fi";
+import { BiTrashAlt } from "react-icons/bi";
+import { VscEdit } from "react-icons/vsc";
 
 import api from "../../app/services/api";
+
 import { AttendanceStatus } from "../../app/enums/AttendanceStatus";
 import { AttendanceColor } from "../../app/enums/AttendanceColor";
 import { PatientModal } from "../../app/components/PatientModal";
@@ -17,6 +20,7 @@ import { Pagination } from "../../app/components/Pagination";
 
 export function Home() {
     const [patients, setPatients] = useState([]);
+    const [search, setSearch] = useState("");
     const [showPatientModal, setShowPatientModal] = useState(false);
     const [editPatient, setEditPatient] = useState<number>();
     const [page, setPage] = useState(1);
@@ -26,7 +30,11 @@ export function Home() {
 
     async function getPatients() {
         try {
-            const response = await api.get(`/patients?page=${page}`);
+            const response = await api.get(`/patients?page=${page}`, {
+                params: {
+                    search,
+                },
+            });
 
             setTotalPages(response.data.total);
             setItemsPerPage(response.data.per_page);
@@ -72,18 +80,33 @@ export function Home() {
         getPatients();
     }, [page]);
 
+    useEffect(() => {
+        getPatients();
+    }, [search]);
+
     return (
         <div className="mx-4 my-4">
-            <Button
-                variant="primary"
-                className="d-flex align-items-center gap-2 mb-3"
-                onClick={() => {
-                    setShowPatientModal(true);
-                    setEditPatient(0);
-                }}
-            >
-                <AiOutlineUserAdd/> Paciente
-            </Button>
+            <div className="d-flex align-items-center">
+                <Button
+                    variant="primary"
+                    className="d-flex align-items-center gap-2 mb-3"
+                    onClick={() => {
+                        setShowPatientModal(true);
+                        setEditPatient(0);
+                    }}
+                >
+                    <AiOutlineUserAdd/> Paciente
+                </Button>
+
+                <div className="ms-auto">
+                    <Form.Control
+                        type="text"
+                        placeholder="Pesquisar paciente"
+                        className="mb-3 justify-content-end"
+                        onChange={(event) => setSearch(event.target.value)}
+                    />
+                </div>
+            </div>
             
             <div className="border rounded-3 mb-3">
                 <Table
