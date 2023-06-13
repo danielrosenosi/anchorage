@@ -61,7 +61,7 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
             await api.post("/patients", {
                 fullname,
                 birthdate,
-                cpf,
+                identifier,
                 phone,
                 image
             }, {
@@ -112,7 +112,7 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
             await api.put(`/patients/${patientId}`, {
                 fullname,
                 birthdate,
-                cpf,
+                identifier,
                 phone,
             });
             
@@ -232,7 +232,7 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <Form.Label htmlFor="cpf">TELEFONE</Form.Label>
+                        <Form.Label htmlFor="phone">TELEFONE</Form.Label>
 
                         <InputMask
                             placeholder="Digite o número de telefone do paciente"
@@ -245,7 +245,7 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <Form.Label htmlFor="cpf">FOTO DO PACIENTE</Form.Label>
+                        <Form.Label htmlFor="image">FOTO DO PACIENTE</Form.Label>
 
                         <Form.Control
                             type="file"
