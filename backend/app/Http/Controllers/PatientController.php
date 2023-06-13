@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShowPatientsRequest;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Models\PatientModel;
 
 class PatientController extends Controller
 {
-    public function show()
+    public function show(ShowPatientsRequest $request)
     {
-        $patients = PatientModel::with('lastAttendance')->paginate(10);
+        $patients = PatientModel::with('lastAttendance')
+            ->when($request->has('search'), function ($query) use ($request) {
+                $query->where('fullname', 'LIKE', "%{$request->search}%")
+                    ->orWhere('cpf', 'LIKE', "%{$request->search}%");
+            })->paginate(10);
 
         return response()->json($patients);
     }
