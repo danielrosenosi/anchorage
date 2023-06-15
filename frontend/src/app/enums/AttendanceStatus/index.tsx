@@ -3,4 +3,5 @@ export enum AttendanceStatus {
     "SINTOMAS INSUFICIENTES" = 1,
     "POTENCIAL INFECTADO" = 2,
     "POSSÍVEL INFECTADO" = 3,
+    "ATENDIMENTO EM ABERTO" = 4,
 }

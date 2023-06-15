@@ -3,4 +3,5 @@ export enum AttendanceColor {
     "primary" = 1,
     "warning" = 2,
     "danger" = 3,
+    "secondary" = 4,
 }
