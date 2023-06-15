@@ -3,4 +3,5 @@ type PatientInformation = {
     cpf: string;
     birthdate: string;
     image: string;
+    status: number;
 }
