@@ -1,12 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { Badge, Button } from 'react-bootstrap';
 import dayjs from 'dayjs';
+import { Badge, Button } from 'react-bootstrap';
 import { Card } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import { BiArrowBack } from 'react-icons/bi';
 
-export function PatientInformation({ fullname, cpf, birthdate, image }: PatientInformation) {
+import { AttendanceColor } from '../../enums/AttendanceColor';
+import { AttendanceStatus } from '../../enums/AttendanceStatus';
+
+export function PatientInformation({ fullname, cpf, birthdate, image, status }: PatientInformation) {
     const navigate = useNavigate();
 
     return (
@@ -25,8 +28,16 @@ export function PatientInformation({ fullname, cpf, birthdate, image }: PatientI
 
                     <Col md="10">
                         <div className="d-flex flex-column fw-bolder fs-6">
-                            <label className="gap-3">
-                                {fullname} <Badge pill bg="danger">INFECTADO</Badge>
+                            <label className="gap-2">
+                                {fullname}
+                                
+                                <Badge
+                                    pill
+                                    bg={`${AttendanceColor[status] ?? 'dark'}`}
+                                    className="mt-3 ms-2"
+                                >
+                                    {AttendanceStatus[status] ?? "NÃO ATENDIDO"}
+                                </Badge>
                             </label>
                             <label className="text-secondary">{cpf}</label>
                             <label className="text-secondary">{dayjs(birthdate).format("DD/MM/YYYY")}</label>
