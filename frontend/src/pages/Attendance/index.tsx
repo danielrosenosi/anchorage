@@ -14,10 +14,12 @@ import { PatientInformation } from "../../app/components/PatientInformation";
 import { LastAttendances } from "../../app/components/LastAttendances";
 import { CheckboxInput } from "../../app/components/CheckboxInput";
 import Swal from "sweetalert2";
+import { calculationAttendanceStatus } from "../../app/utils/calculationAttendanceStatus";
 
 export function Attendance() {
     const [patient, setPatient] = useState({} as Patient);
     const [symptoms, setSymptoms] = useState({});
+    const [statusCurrentAttendance, setStatusCurrentAttendance] = useState(4);
     const [temperature, setTemperature] = useState("");
     const [respirationFrequency, setRespirationFrequency] = useState("");
     const [sistolicBloodPressure, setSistolicBloodPressure] = useState("");
@@ -70,7 +72,11 @@ export function Attendance() {
 
     useEffect(() => {
         getPatientDataForAttendance();
-    }, [id]);
+    });
+
+    useEffect(() => {
+        calculationAttendanceStatus(symptoms, setStatusCurrentAttendance)
+    }, [symptoms]);
 
     return (
         <Container className="my-4 attendance-body">
@@ -81,6 +87,7 @@ export function Attendance() {
                         birthdate={patient.birthdate}
                         cpf={patient.cpf}
                         image={patient.image}
+                        status={statusCurrentAttendance}
                     />
                 </Col>
             </Row>
