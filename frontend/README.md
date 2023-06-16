@@ -11,4 +11,4 @@ Run the project:
 yarn start
 ```
 
-## ✅ All done, now go to the frontend folder and perform the installation!!
+## ✅ All done, now go to the backend folder and perform the installation!!
