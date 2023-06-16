@@ -72,7 +72,7 @@ export function Attendance() {
 
     useEffect(() => {
         getPatientDataForAttendance();
-    });
+    }, [id]);
 
     useEffect(() => {
         calculationAttendanceStatus(symptoms, setStatusCurrentAttendance)
@@ -93,7 +93,7 @@ export function Attendance() {
             </Row>
 
             <Row className="mb-3">
-                <LastAttendances allAttendances={patient.all_attendances} />
+                <LastAttendances patientId={patient.id} />
             </Row>
 
             <Row className="mb-3">

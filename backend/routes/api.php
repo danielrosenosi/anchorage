@@ -27,5 +27,5 @@ Route::put('/patients/{patientId}', [PatientController::class, 'update'])->name(
 Route::delete('/patients/{patientId}', [PatientController::class, 'destroy'])->name('patients.destroy');
 
 //routes for attendance
-Route::get('/attendance/{patientId}', [AttendanceController::class, 'show'])->name('attendance.show');
+Route::get('/attendances/{patientId}', [AttendanceController::class, 'show'])->name('attendance.show');
 Route::post('/attendance/{patientId}', [AttendanceController::class, 'store'])->name('attendance.store');

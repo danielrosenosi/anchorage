@@ -45,14 +45,4 @@ class AttendanceModel extends Model
             return 0;
         }
     }
-
-    public static function getDescriptionStatus(int $status): string
-    {
-        return match ($status) {
-            0 => 'Sem sintomas',
-            1 => 'Sintomas insuficientes',
-            2 => 'Potencial Infectado',
-            3 => 'Possível Infectado',
-        };
-    }
 }

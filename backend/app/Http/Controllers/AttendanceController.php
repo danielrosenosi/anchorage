@@ -4,21 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AttendanceRequest;
 use App\Models\AttendanceModel;
+use Illuminate\Http\JsonResponse;
 
 class AttendanceController extends Controller
 {
-    public function show(int $patientId)
+    public function show(int $patientId): JsonResponse
     {
-        $attendance = AttendanceModel::where('patient_id', $patientId)->get();
-
-        foreach ($attendance as $key => $value) {
-            $attendance[$key]['status'] = AttendanceModel::getDescriptionStatus($value['status']);
-        }
+        $attendance = AttendanceModel::where('patient_id', $patientId)->paginate(5);
 
         return response()->json($attendance);
     }
 
-    public function store(int $patientId, AttendanceRequest $request)
+    public function store(int $patientId, AttendanceRequest $request): JsonResponse
     {
         $data = $request->validated();
 

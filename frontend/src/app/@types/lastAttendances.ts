@@ -1,0 +1,3 @@
+type LastAttendances = {
+    patientId: number;
+}
