@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PatientModel extends Model
 {
@@ -24,8 +25,13 @@ class PatientModel extends Model
 
     protected $table = 'patients';
 
-    public function lastAttendance()
+    public function lastAttendance(): HasOne
     {
         return $this->hasOne(AttendanceModel::class, 'patient_id', 'id')->latest();
+    }
+
+    public function allAttendances(): HasMany
+    {
+        return $this->hasMany(AttendanceModel::class, 'patient_id', 'id');
     }
 }

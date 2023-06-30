@@ -61,7 +61,7 @@ export function PatientModal({ show, onHide, getPatients, patientId }: Props) {
             await api.post("/patients", {
                 fullname,
                 birthdate,
-                identifier,
+                cpf: identifier,
                 phone,
                 image
             }, {
