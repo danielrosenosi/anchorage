@@ -26,4 +26,9 @@ Make sure that the connection to the database is made and run:
 php artisan migrate
 ```
 
+Run the following command to create a symbolic link:
+```
+php artisan storage:link
+```
+
 ## ✅ All done, now go to the frontend folder and perform the installation!!
