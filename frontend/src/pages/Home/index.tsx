@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
+
 import { Badge  } from "react-bootstrap";
 import { Table  } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -10,8 +11,11 @@ import { AiOutlineUserAdd } from 'react-icons/ai';
 import { FiArrowRight } from "react-icons/fi";
 import { BiTrashAlt } from "react-icons/bi";
 import { VscEdit } from "react-icons/vsc";
+import { AiOutlineLogout } from "react-icons/ai";
 
-import api from "../../app/services/api";
+import api from "../../app/services/ConfigApi";
+
+import { useAuth } from "../../app/hooks/useAuth";
 
 import { AttendanceStatus } from "../../app/enums/AttendanceStatus";
 import { AttendanceColor } from "../../app/enums/AttendanceColor";
@@ -27,6 +31,7 @@ export function Home() {
     const [totalPages, setTotalPages] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(0);
     const navigate = useNavigate();
+    const { logout } = useAuth();
 
     async function getPatients() {
         try {
@@ -76,6 +81,10 @@ export function Home() {
         }
     }
 
+    async function handleLogout() {
+        logout();
+    }
+
     useEffect(() => {
         getPatients();
     }, [page]);
@@ -106,6 +115,15 @@ export function Home() {
                         onChange={(event) => setSearch(event.target.value)}
                     />
                 </div>
+
+                <Button
+                    variant="danger"
+                    className="d-flex align-items-center gap-2 mb-3 ms-2"
+                    title="Sair do sistema"
+                    onClick={handleLogout}
+                >
+                    <AiOutlineLogout /> Sair
+                </Button>
             </div>
             
             <div className="border rounded-3 mb-3">

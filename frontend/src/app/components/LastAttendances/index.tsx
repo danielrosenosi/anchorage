@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 import { Badge } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import dayjs from "dayjs";
-import api from "../../services/api";
+import api from "../../services/ConfigApi";
 
 import { AttendanceColor } from "../../enums/AttendanceColor";
 import { AttendanceStatus } from "../../enums/AttendanceStatus";

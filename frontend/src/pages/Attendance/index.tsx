@@ -5,7 +5,7 @@ import { Card } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 
-import api from "../../app/services/api";
+import api from "../../app/services/ConfigApi";
 
 import { Temperature } from "../../app/components/VitalSigns/Temperature";
 import { RespirationFrequency } from "../../app/components/VitalSigns/RespirationFrequency";

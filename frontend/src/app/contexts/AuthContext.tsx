@@ -34,6 +34,8 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         } else {
             localStorage.setItem(LOCAL_STORAGE_KEY_ACCESS_TOKEN, JSON.stringify(String(result?.accessToken)));
             setAccessToken(result?.accessToken);
+
+            window.location.reload();
         }
     }, []);
 

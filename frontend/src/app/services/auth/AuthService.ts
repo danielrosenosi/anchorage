@@ -1,4 +1,4 @@
-import api from "../api";
+import api from "../ConfigApi";
 
 interface IAuth {
     accessToken: string;
@@ -6,9 +6,11 @@ interface IAuth {
 
 const auth = async (email: string, password: string): Promise<IAuth | undefined> => {
     try {
-        const { data } = await api.post("/auth", {
+        const { data } = await api.post("/login", {
             email,
-            password,
+            password
+        }, {
+            withCredentials: true
         });
 
         if (data) {
