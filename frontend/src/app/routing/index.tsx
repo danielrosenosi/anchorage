@@ -6,14 +6,17 @@ import {
 
 import { Home } from "../../pages/Home";
 import { Attendance } from "../../pages/Attendance";
+import { Sidebar } from "../components/Sidebar";
 
 export function AppRoutes() {
     return (
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path ="/attendance/:id" element={<Attendance />} />
-            </Routes>
+            <Sidebar>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path ="/attendance/:id" element={<Attendance />} />
+                </Routes>
+            </Sidebar>
         </BrowserRouter>
     );
 }
