@@ -3,10 +3,6 @@ import axios from "axios";
 
 import { useAuth } from "../../app/hooks/useAuth";
 
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-
 import "./styles.css";
 
 type LoginProps = {
@@ -37,38 +33,43 @@ export function Login({ children }: LoginProps) {
 
     return (
         <div className="d-flex align-items-center justify-content-center login-container">  
-            <div className="border-radius rounded-2 login-form">
-                <h5 className="mb-3 font-weight-bold">Idenfique-se</h5>
+            <div className="border-radius rounded-3 login-form">
+                <h5 className="mb-4 text-center">Identifique-se</h5>
 
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3 d-flex flex-column">
+                        <label htmlFor="email">USUÁRIO</label>
+
+                        <input
                             type="email"
-                            placeholder="Insira seu e-mail"
+                            id="email"
+                            placeholder="Email"
                             onChange={(event) => setEmail(event.target.value)}
+                            className="input-email"
                         />
-                    </Form.Group>
+                    </div>
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Senha</Form.Label>
-                        <Form.Control
+                    <div className="mb-4 d-flex flex-column">
+                        <label htmlFor="password">SENHA</label>
+
+                        <input
                             type="password"
-                            placeholder="Insira sua senha"
+                            id="password"
+                            placeholder="Senha"
                             onChange={(event) => setPassword(event.target.value)}
+                            className="input-password"
                         />
-                    </Form.Group>
+                    </div>
 
-                    <Row className="d-flex align-items-center justify-content-center">
-                        <Button
-                            variant="primary"
-                            className="w-50"
+                    <div>
+                        <button
+                            className="w-100 rounded-2 btn btn-primary"
                             type="submit"
                         >
-                            Entrar
-                        </Button>
-                    </Row>
-                 </Form>
+                            ENTRAR
+                        </button>
+                    </div>
+                 </form>
             </div>
         </div>
     );

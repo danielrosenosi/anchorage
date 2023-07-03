@@ -40,11 +40,7 @@ class AuthController extends Controller
             $user = Auth::user();
 
             return response()->json([
-                'user' => $user,
-                'authorisation' => [
-                    'token' => $user->createToken('ApiToken')->plainTextToken,
-                    'type' => 'bearer',
-                ]
+                'token' => $user->createToken('auth_token')->plainTextToken,
             ]);
         }
 
@@ -66,7 +62,7 @@ class AuthController extends Controller
     {
         return response()->json([
             'user' => Auth::user(),
-            'authorisation' => [
+            'authorization' => [
                 'token' => Auth::refresh(),
                 'type' => 'bearer',
             ]

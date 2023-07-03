@@ -29,13 +29,9 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     const handleLogin = useCallback(async (email: string, password: string) => {
         const result = await AuthService.auth(email, password);
 
-        if (result instanceof Error) {
-            return result.message;
-        } else {
-            localStorage.setItem(LOCAL_STORAGE_KEY_ACCESS_TOKEN, JSON.stringify(String(result?.accessToken)));
-            setAccessToken(result?.accessToken);
-
-            window.location.reload();
+        if(result) {
+            localStorage.setItem(LOCAL_STORAGE_KEY_ACCESS_TOKEN, JSON.stringify(String(result.token).replace(/['"]+/g, '')));
+            setAccessToken(result.token);
         }
     }, []);
 
@@ -51,8 +47,6 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
         if (accessToken) {
             setAccessToken(JSON.parse(accessToken));
-        } else {
-            setAccessToken(undefined);
         }
     }, []);
 

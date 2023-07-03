@@ -1,7 +1,9 @@
+import Swal from "sweetalert2";
+
 import api from "../ConfigApi";
 
 interface IAuth {
-    accessToken: string;
+    token: string;
 }
 
 const auth = async (email: string, password: string): Promise<IAuth | undefined> => {
@@ -13,16 +15,19 @@ const auth = async (email: string, password: string): Promise<IAuth | undefined>
             withCredentials: true
         });
 
-        if (data) {
-            return data.accessToken;
-        }
-
-        return undefined;
-    } catch (error) {
-        console.log(error);
+        return data;
+    } catch (error: any) {
+        Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+        }).fire({
+            icon: "error",
+            title: "Credenciais inválidas!",
+        });
     }
 };
 
-export const AuthService = {
-    auth,
-};
+export const AuthService = { auth };
