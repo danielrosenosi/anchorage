@@ -6,7 +6,7 @@ import { useAuth } from "../../app/hooks/useAuth";
 import "./styles.css";
 
 type LoginProps = {
-    children: ReactNode
+    children: ReactNode;
 }
 
 export function Login({ children }: LoginProps) {
