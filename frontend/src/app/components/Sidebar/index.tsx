@@ -12,30 +12,24 @@ type SidebarProps = {
 
 export function Sidebar({ children }: SidebarProps) {
     return (
-        <div className="container d-flex">
+        <>
             <div className="sidebar">
-                <div className="sidebar-header">
-                    <h5 className="logo">Sidebar</h5>
+                <header>
+                    <div className="image-text">
+                        <span className="image">
+                            <img src="images/logo.jpg" alt="logo" />
+                        </span>
 
-                    <div className="bars">
-                        <FaBars />
+                        <div className="text header-text">
+                            <span className="name">Anchorage</span>
+                        </div>
                     </div>
-                </div>
-                
-                <NavLink to="/" className="link" >
-                    <div className="icon">
-                        <BiHomeAlt2 />
-                    </div>
-
-                    <div className="link-text">
-                        Home
-                    </div>
-                </NavLink>
+                </header>
             </div>
             
             <div className="w-100">
                 {children}
             </div>
-        </div>
+        </>
     );
 };
