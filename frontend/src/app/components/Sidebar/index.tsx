@@ -1,18 +1,14 @@
-import { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-
+import { FiChevronRight } from 'react-icons/fi';
+import { SlSettings } from 'react-icons/sl';
+import { BiHomeAlt2 } from 'react-icons/bi';
 import { SlLogout } from 'react-icons/sl';
 import { SlPeople } from 'react-icons/sl';
-import { BiHomeAlt2 } from 'react-icons/bi';
-import { FiChevronRight } from 'react-icons/fi';
 
+import { LinkBar } from './LinkBar';
 import { useAuth } from '../../hooks/useAuth';
+import { SidebarProps } from '../../@types/sidebar';
 
 import './styles.css';
-
-type SidebarProps = {
-    children: ReactNode;
-}
 
 export function Sidebar({ children }: SidebarProps) {
     const { logout } = useAuth();
@@ -49,26 +45,23 @@ export function Sidebar({ children }: SidebarProps) {
                 <div className="menu-bar">
                     <div className="menu">
                         <ul className="menu-links p-0">
-                            <li className="nav-link">
-                                <Link to="/dashboard" className="link">
-                                    <BiHomeAlt2 className="icon" />
-                                    <span className="text nav-text">Dashboard</span>
-                                </Link>
-                            </li>
+                            <LinkBar
+                                title="Dashboard"
+                                route="dashboard"
+                                icon={<BiHomeAlt2 className="icon" />}
+                            />
 
-                            <li className="nav-link">
-                                <Link to="/pacientes" className="link">
-                                    <SlPeople className="icon" />
-                                    <span className="text nav-text">Pacientes</span>
-                                </Link>
-                            </li>
+                            <LinkBar
+                                title="Pacientes"
+                                route="pacientes"
+                                icon={<SlPeople className="icon" />}
+                            />
 
-                            <li className="nav-link">
-                                <Link to="/usuarios" className="link">
-                                    <SlPeople className="icon" />
-                                    <span className="text nav-text">Usuários</span>
-                                </Link>
-                            </li>
+                            <LinkBar
+                                title="Configurações"
+                                route="configuracoes"
+                                icon={<SlSettings className="icon" />}
+                            />
                         </ul>
                     </div>
                 </div>
