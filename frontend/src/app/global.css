@@ -1,9 +1,0 @@
-.app {
-    background-color: #F5F5F5;
-    min-height: 100vh;
-    font-size: 1.1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-family: 'Roboto', sans-serif;
-}

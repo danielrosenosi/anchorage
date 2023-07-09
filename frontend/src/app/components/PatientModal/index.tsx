@@ -6,7 +6,7 @@ import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 
-import api from '../../services/api';
+import api from '../../services/ConfigApi';
 
 import { InputMask } from '../InputMask';
 

@@ -1,8 +1,10 @@
 import { Form } from "react-bootstrap";
 
+import "./styles.css";
+
 export function CheckboxInput({ label, name, value, onChange }: CheckboxInput) {
     return (
-        <Form.Group className="mb-2">
+        <Form.Group className="checkbox-input">
             <Form.Check
                 type="checkbox"
                 label={label}
