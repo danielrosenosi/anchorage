@@ -136,9 +136,14 @@ header .image-text .header-text {
     border-radius: 50%;
     align-items: center;
     justify-content: center;
-    transform: translateY(-50%) rotate(180deg);
+    transition: var(--tran-03);
     color: var(--sidebar-color);
     background-color: var(--primary-color);
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.sidebar .menu {
+    margin-top: 30px;
 }
 
 .sidebar header .toggle:hover {
@@ -169,4 +174,5 @@ header .image-text .header-text {
 .sidebar .sidebar-footer .btn-logout:hover {
     background-color: var(--primary-color);
     color: var(--sidebar-color);
+    transition: var(--tran-02);
 }
