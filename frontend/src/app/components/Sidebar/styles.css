@@ -23,7 +23,7 @@
 }
 
 .sidebar.close header .toggle {
-    transform: translateY(-50%) rotate(180deg);
+    transform: translateY(-50%);
 }
 
 .sidebar .menu-bar {
@@ -136,7 +136,7 @@ header .image-text .header-text {
     border-radius: 50%;
     align-items: center;
     justify-content: center;
-    transform: translateY(-50%);
+    transform: translateY(-50%) rotate(180deg);
     color: var(--sidebar-color);
     background-color: var(--primary-color);
 }
