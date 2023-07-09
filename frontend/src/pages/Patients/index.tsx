@@ -3,21 +3,20 @@ import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
 
+import { SlUserFollow } from 'react-icons/sl';
+import { FiArrowRight } from "react-icons/fi";
+import { BiTrashAlt } from "react-icons/bi";
+import { VscEdit } from "react-icons/vsc";
 import { Badge  } from "react-bootstrap";
 import { Table  } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
-import { AiOutlineUserAdd } from 'react-icons/ai';
-import { FiArrowRight } from "react-icons/fi";
-import { BiTrashAlt } from "react-icons/bi";
-import { VscEdit } from "react-icons/vsc";
 
 import api from "../../app/services/ConfigApi";
-
-import { AttendanceStatus } from "../../app/enums/AttendanceStatus";
-import { AttendanceColor } from "../../app/enums/AttendanceColor";
-import { PatientModal } from "../../app/components/PatientModal";
 import { Pagination } from "../../app/components/Pagination";
+import { PatientModal } from "../../app/components/PatientModal";
+import { AttendanceColor } from "../../app/enums/AttendanceColor";
+import { AttendanceStatus } from "../../app/enums/AttendanceStatus";
 
 export function Patients() {
     const [patients, setPatients] = useState([]);
@@ -96,7 +95,7 @@ export function Patients() {
                         setEditPatient(0);
                     }}
                 >
-                    <AiOutlineUserAdd/> Paciente
+                    <SlUserFollow/> Paciente
                 </Button>
 
                 <div className="ms-auto">
@@ -189,13 +188,15 @@ export function Patients() {
                 </tbody>
             </Table>
             
-            <div className="d-flex justify-content-center">
-                <Pagination
-                    itemsPerPage={itemsPerPage}
-                    changeSelectedPage={setPage}
-                    totalPages={totalPages}
-                />
-            </div>
+            {patients.length >= 10 && (
+                <div className="d-flex justify-content-center">
+                    <Pagination
+                        itemsPerPage={itemsPerPage}
+                        changeSelectedPage={setPage}
+                        totalPages={totalPages}
+                    />
+                </div>
+            )}
             
             <PatientModal
                 show={showPatientModal}
