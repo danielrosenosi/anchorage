@@ -8,22 +8,3 @@
     padding: 2rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-
-label {
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 0.5rem;
-}
-
-input {
-    padding: 0.5rem 0.75rem;
-    background: #EEF1F5;
-    border-radius: 8px;
-    border: none;
-    transition: .15s ease-in-out;
-}
-
-input:focus {
-    outline: none;
-    box-shadow: 0 0 0 0;
-}
