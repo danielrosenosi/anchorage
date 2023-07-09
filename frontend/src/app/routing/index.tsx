@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 import { Patients } from "../../pages/Patients";
-import { Users } from "../../pages/Users";
+import { Settings } from "../../pages/Settings";
 import { Sidebar } from "../components/Sidebar";
 import { Dashboard } from "../../pages/Dashboard";
 import { Attendance } from "../../pages/Attendance";
@@ -15,7 +15,7 @@ export function AppRoutes() {
         <BrowserRouter>
             <Sidebar>
                 <Routes>
-                    <Route path="/usuarios" element={<Users />} />
+                    <Route path="/configuracoes" element={<Settings />} />
                     <Route path="/pacientes" element={<Patients />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path ="/attendance/:id" element={<Attendance />} />
